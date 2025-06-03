@@ -1,0 +1,18 @@
+---
+const { data } = Astro.props;
+---
+
+<div class="rounded-box">
+  <table class="table table-sm">
+    <tbody>
+      {
+        data.map((i: any, index: number) => (
+          <tr key="{index}">
+            <th>{i.type}</th>
+            <td>{i.data}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

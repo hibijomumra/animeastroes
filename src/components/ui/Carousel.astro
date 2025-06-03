@@ -1,0 +1,62 @@
+---
+const { data } = Astro.props;
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<div class="swiper w-full h-64 my-2 md:h-96 rounded-md">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {
+      data.map((item, index) => (
+        <div class="swiper-slide" key={index}>
+          <div class="text-white rounded-md relative select-none">
+            <img
+              src={item.image}
+              alt={item.title}
+              class="object-cover w-full h-64 md:h-96 rounded-md"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/90 to-black/20" />
+            <div class="absolute top-0 left-0 right-0 bottom-0 flex flex-col gap-4 p-2 md:p-4 justify-end">
+              <div class="flex flex-col gap-2 mb-10 md:mb-12">
+                <span class="text-xs text-secondary font-semibold">
+                  # {index + 1} Spotlight
+                </span>
+                <h3 class="text-lg font-bold line-clamp-1">{item.title}</h3>
+              </div>
+              <p class="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-sm btn btn-xs btn-outline backdrop-blur">
+                {item.label
+                  .slice(0, 3)
+                  .map((data) => data)
+                  .join(", ")}
+              </p>
+              <div class="absolute bottom-2 right-2 md:bottom-4 md:right-4 card-actions justify-end flex gap-2">
+                <a
+                  href={`/watch/${item.id}/${item.slug}`}
+                  class="btn btn-primary btn-sm md:btn-md rounded-md flex items-center"
+                >
+                  Tonton
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script type="module">
+  import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs";
+
+  const swiper = new Swiper(".swiper", {
+    loop: true,
+    autoplay: {
+      delay: 3000,
+    },
+  });
+</script>

@@ -1,0 +1,73 @@
+---
+export const prerender = false;
+import Layout from "~/layouts/Layout.astro";
+import Table from "~/components/ui/Table.astro";
+import { fetchAnimeData } from "~/utils/api";
+
+const { id, slug } = Astro.params;
+const episode = Astro.url.searchParams.get("episode") ?? null;
+
+// parameters validation
+if (!id || !slug) {
+  return new Response(null, { status: 404, statusText: "Not Found" });
+}
+
+const res = await fetchAnimeData(id, slug);
+if (!res) {
+  return new Response(null, { status: 404, statusText: "Anime not found" });
+}
+const data = res;
+
+// Ekstrak data episode dengan aman.
+const episodes = data.results.episode;
+const totalEp = episodes?.at(-1) ?? 1;
+const isFinished = data.results.details[2]?.data?.includes("Selesai");
+const checkEpSelesai = episode ?? (isFinished ? episodes[0] : totalEp);
+---
+
+<!-- Include Vidstack player theme and video styles -->
+<link rel="stylesheet" href="https://cdn.vidstack.io/player/theme.css" />
+<link rel="stylesheet" href="https://cdn.vidstack.io/player/video.css" />
+
+<Layout title={data.results.title} description="">
+  <div class="grid grid-cols-1 gap-2 my-2">
+    <!-- Ini untuk menyimpan data agar si JSHT bisa membacanya, sebenarnya mungkin kurang bagus tapi ya sudahlah anggap aja a life hack -->
+    <input id="episode" type="hidden" value={checkEpSelesai} />
+    <div class="bg-base-300 rounded pb-2">
+      <p
+        id="playerInfo"
+        class="aspect-video skeleton flex flex-col items-center justify-center text-center mb-2"
+      >
+        Memuat video player
+      </p>
+      <div
+        id="player"
+        data-poster={data.results.image}
+        data-storage="player-storage"
+        data-autoplay="true"
+        data-playsinline
+        class="aspect-video hidden"
+      >
+      </div>
+      <div class="flex justify-between items-center mx-2">
+        <button id="prevEpisode" class="join-item btn btn-sm">prev</button>
+        <button id="currentEp" class="btn btn-sm btn-disabled w-auto"
+          >Episode</button
+        >
+        <button id="nextEpisode" class="btn btn-sm">next</button>
+      </div>
+    </div>
+    <div class="p-2 rounded grid gap-2 bg-base-300">
+      <h1 class="text-center mt-2 font-bold text-lg">{data.results.title}</h1>
+      <Table data={data.results.details} />
+      <span>Sinopsis: </span><p set:html={data.results.description} />
+    </div>
+  </div>
+</Layout>
+
+<!-- And yeah our favorite JSHT is here -->
+<script>
+  import { initWatchPlayer } from "/src/scripts/watch.js";
+  document.addEventListener("astro:after-swap", initWatchPlayer);
+  initWatchPlayer();
+</script>

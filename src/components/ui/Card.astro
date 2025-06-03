@@ -1,0 +1,100 @@
+---
+interface Data {
+  title: string;
+  url: string;
+  pages: string;
+  img: string;
+  tipe: string;
+  episode: string;
+}
+
+interface Props {
+  data: Data[] | null;
+  loadingNumber: number;
+  search: boolean;
+}
+
+const { data, search } = Astro.props;
+---
+
+<!-- Cards -->{
+  data &&
+    data.map((item, index) => {
+      const imgSrc = item.image?.includes("wp.com")
+        ? `${item.image}?quality=50&w=240`
+        : item.image || null;
+
+      const title = item.title;
+      const episode = item.episode
+        ? `?episode=${item.episode.split(" ")[1]?.split("/")[0]}`
+        : "";
+
+      const linkTo = `/watch/${item.id}/${item.slug}${episode}`;
+
+      return (
+        <div
+          key={index}
+          class="card aspect-[3/4] group relative select-none shadow rounded max-h-96"
+        >
+          <figure>
+            <img
+              src={`${imgSrc}?w=240`}
+              width={240}
+              height={340}
+              alt={item.title}
+              loading="lazy"
+              class="card-image object-cover aspect-[3/4] rounded w-full h-full"
+            />
+          </figure>
+
+          <div class="w-full absolute bottom-0 bg-base-100/50 group-hover:backdrop-blur-sm transition-[height] max-h-[100%] h-20 md:h-22 group-hover:h-96 flex flex-col justify-center items-center rounded">
+            <h3 class="text-sm md:text-md font-bold absolute top-2 line-clamp-2 group-hover:line-clamp-5 text-center">
+              {title}
+            </h3>
+
+            <div class="absolute bottom-1 flex flex-col gap-4">
+              <a
+                href={linkTo}
+                class="hidden group-hover:flex btn btn-primary btn-sm"
+              >
+                {search ? (
+                  <span class="search-link">Tonton</span>
+                ) : (
+                  <>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-play size-4"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                    Tonton
+                  </>
+                )}
+              </a>
+              <p class="text-center text-xs font-semibold">
+                {item.episode || item.type || item.status}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    })
+}
+
+<script>
+  // Handle search dialog closure
+  document.querySelectorAll(".search-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const menuSearch = document.getElementById("menu-search");
+      menuSearch?.close?.();
+    });
+  });
+</script>
