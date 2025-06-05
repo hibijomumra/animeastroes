@@ -17,7 +17,6 @@ const { data } = Astro.props;
           <div class="text-white rounded-md relative select-none">
                 <a
                   href={`/watch/${item.id}/${item.slug}`}
-                  class="btn btn-primary btn-sm md:btn-md rounded-md flex items-center"
                 >
             <img
               src={item.image}
@@ -31,7 +30,11 @@ const { data } = Astro.props;
                 <span class="text-xs text-secondary font-semibold">
                   # {index + 1} Spotlight
                 </span>
-                <h3 class="text-lg font-bold line-clamp-1">{item.title}</h3>
+                <h3 class="text-lg font-bold line-clamp-1">                <a
+                  href={`/watch/${item.id}/${item.slug}`}
+                >
+{item.title}                </a>
+</h3>
               </div>
               <p class="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-sm btn btn-xs btn-outline backdrop-blur">
                 {item.label
