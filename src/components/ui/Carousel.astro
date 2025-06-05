@@ -15,11 +15,16 @@ const { data } = Astro.props;
       data.map((item, index) => (
         <div class="swiper-slide" key={index}>
           <div class="text-white rounded-md relative select-none">
+                <a
+                  href={`/watch/${item.id}/${item.slug}`}
+                  class="btn btn-primary btn-sm md:btn-md rounded-md flex items-center"
+                >
             <img
               src={item.image}
               alt={item.title}
               class="object-cover w-full h-64 md:h-96 rounded-md"
             />
+                </a>
             <div class="absolute inset-0 bg-gradient-to-r from-black/90 to-black/20" />
             <div class="absolute top-0 left-0 right-0 bottom-0 flex flex-col gap-4 p-2 md:p-4 justify-end">
               <div class="flex flex-col gap-2 mb-10 md:mb-12">
