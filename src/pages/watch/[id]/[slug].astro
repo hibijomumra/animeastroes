@@ -3,6 +3,7 @@ export const prerender = false;
 import Layout from "~/layouts/Layout.astro";
 import Table from "~/components/ui/Table.astro";
 import { fetchAnimeData } from "~/utils/api";
+import Complet from "~/pages/complet.astro";
 
 const { id, slug } = Astro.params;
 const episode = Astro.url.searchParams.get("episode") ?? null;
@@ -28,9 +29,28 @@ const checkEpSelesai = episode ?? (isFinished ? episodes[0] : totalEp);
 <!-- Include Vidstack player theme and video styles -->
 <link rel="stylesheet" href="https://cdn.vidstack.io/player/theme.css" />
 <link rel="stylesheet" href="https://cdn.vidstack.io/player/video.css" />
-
-<Layout title={data.results.title} description="">
-  <div class="grid grid-cols-1 gap-2 my-2">
+<link rel="canonical" href={`https://animeastroes.pages.dev/watch/${id}/${slug}`}/>
+<meta name="description" content={data.results.title}>
+<meta property="og:title" content={data.results.title}>
+<meta property="og:type" content="website">
+<meta property="og:url" content={`https://animeastroes.pages.dev/watch/${id}/${slug}`}>
+<meta property="og:locale" content="id">
+<meta property="og:description" content={data.results.title}>
+<meta property="og:site_name" content="AnimeAstroes">
+<meta property="og:image" content={data.results.image}>
+<meta property="og:image:alt" content={data.results.title}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="AnimeAstroes">
+<meta name="twitter:title" content={data.results.title}>
+<meta name="twitter:description" content={data.results.title}>
+<meta name="twitter:image" content={data.results.image}>
+<meta name="twitter:image:alt" content={data.results.title}>
+<meta name="robots" content="max-image-preview:large">
+<meta name="keywords" content="kuramanime, moenime, moenime id, moenime list, moe anime, samehadaku, samehada, oploverz, anime batch indonesia, anime batch sub indo, animebatch sub indo, anime batch terbaru, download anime batch subtitle indonesia, situs download anime, anime sub indo, download anime sub indo, download anime subtitle indonesia, download anime terbaru, download anime bd, download anime movie, download anime batch, download anime batch sub indo, download anime batch subtitle indonesia terlengkap, streaming anime, streaming anime sub indo, streaming anime subtitle indonesia, streaming anime sub indo lengkap, nonton anime sub indo, nonton anime subtitle indonesia">
+<meta property="article:tag" content="Anime">
+<meta property="article:section" content="Anime">
+<Layout title={data.results.title} description={data.results.title}>
+  <div class="grid grid-cols-1 gap-2 my-2" itemProp="video" itemScope="" itemType="http://schema.org/VideoObject">
     <!-- Ini untuk menyimpan data agar si JSHT bisa membacanya, sebenarnya mungkin kurang bagus tapi ya sudahlah anggap aja a life hack -->
     <input id="episode" type="hidden" value={checkEpSelesai} />
     <div class="bg-base-300 rounded pb-2">
@@ -57,12 +77,26 @@ const checkEpSelesai = episode ?? (isFinished ? episodes[0] : totalEp);
         <button id="nextEpisode" class="btn btn-sm">next</button>
       </div>
     </div>
+    <script type="text/javascript" src="https://js.juicyads.com/jp.php?c=947403z2v256s2x2w2e4z2e4&u=http%3A%2F%2Fwww.juicyads.rocks"></script>
+    <!-- JuicyAds v3.0 -->
+<script type="text/javascript" data-cfasync="false" async src="https://poweredby.jads.co/js/jads.js"></script>
+<ins id="1055940" data-width="308" data-height="298"></ins>
+<script type="text/javascript" data-cfasync="false" async>(adsbyjuicy = window.adsbyjuicy || []).push({'adzone':1055940});</script>
+<meta itemProp="author" content="admin"/>
+<meta itemProp="name" content={data.results.title}/>
+<meta itemProp="description" content={data.results.title}/>
+<meta itemProp="duration" content="P0DT0H24M43S"/>
+<meta itemProp="thumbnailUrl" content={data.results.image}/>
+<meta itemProp="embedURL" content={`https://animeastroes.pages.dev/watch/${id}/${slug}`}/>
+<meta itemProp="uploadDate" content="2025-04-17T18:01:01.000Z"/>
     <div class="p-2 rounded grid gap-2 bg-base-300">
       <h1 class="text-center mt-2 font-bold text-lg">{data.results.title}</h1>
       <Table data={data.results.details} />
       <span>Sinopsis: </span><p set:html={data.results.description} />
     </div>
   </div>
+  <h2 class="text-center mt-2 font-bold text-lg">Related {data.results.title}</h2>
+  <Complet />
 </Layout>
 
 <!-- And yeah our favorite JSHT is here -->

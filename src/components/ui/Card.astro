@@ -3,9 +3,12 @@ interface Data {
   title: string;
   url: string;
   pages: string;
-  img: string;
-  tipe: string;
+  image: string;
+  type: string;
   episode: string;
+  id: string;
+  slug: string;
+  status: string;
 }
 
 interface Props {
@@ -50,11 +53,8 @@ const { data, search } = Astro.props;
           <div class="w-full absolute bottom-0 bg-base-100/50 group-hover:backdrop-blur-sm transition-[height] max-h-[100%] h-20 md:h-22 group-hover:h-96 flex flex-col justify-center items-center rounded">
             <h3 class="text-sm md:text-md font-bold absolute top-2 line-clamp-2 group-hover:line-clamp-5 text-center">
               <a
-                href={linkTo}
-                class="hidden group-hover:flex btn btn-primary btn-sm"
-              >
-              {title}
-              </a>
+                href={linkTo}>
+              {title}</a>
             </h3>
 
             <div class="absolute bottom-1 flex flex-col gap-4">

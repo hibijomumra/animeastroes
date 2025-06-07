@@ -5,6 +5,8 @@ import cloudflare from "@astrojs/cloudflare";
 
 import playformCompress from "@playform/compress";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -22,5 +24,5 @@ export default defineConfig({
     },
   }),
 
-  integrations: [playformCompress()],
+  integrations: [playformCompress(), sitemap()],
 });

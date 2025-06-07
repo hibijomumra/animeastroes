@@ -8,8 +8,11 @@ import { fetchData } from "~/utils/api";
 const homeRes = await fetchData("home");
 const data = await fetchData("ongoing");
 ---
-
-<Layout title="Ongoing - AnimeAstroes">
+<link rel="canonical" href={`https://animeastroes.pages.dev`}/>
+<meta name="google-site-verification" content="Y6iSfBeQKtrtN1jqpBca_dZuaK2SiDjt8jSFFboWOaE" />
+<meta name="yandex-verification" content="8d7f5d259982762a" />
+<meta name="description" content="Website streaming anime sub Indo gratis terlengkap, update anime ongoing dan batch dengan kualitas HD dan akses mudah di semua perangkat."><meta property="og:title" content="AnimeAstroes - Nonton Anime Sub Indo"><meta property="og:type" content="website"><meta property="og:url" content={`/`}><meta property="og:locale" content="id"><meta property="og:description" content="Website streaming anime sub Indo gratis terlengkap, update anime ongoing dan batch dengan kualitas HD dan akses mudah di semua perangkat."><meta property="og:site_name" content="Astro"><meta property="og:image" content="/favicon.svg"><meta property="og:image:alt" content="AnimeAstroes - Nonton Anime Sub Indo"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="AnimeAstroes"><meta name="twitter:title" content="AnimeAstroes - Nonton Anime Sub Indo"><meta name="twitter:description" content="Website streaming anime sub Indo gratis terlengkap, update anime ongoing dan batch dengan kualitas HD dan akses mudah di semua perangkat."><meta name="twitter:image" content="/favicon.svg"><meta name="twitter:image:alt" content="AnimeAstroes - Nonton Anime Sub Indo"><meta name="robots" content="max-image-preview:large"><meta name="keywords" content="kuramanime, moenime, moenime id, moenime list, moe anime, samehadaku, samehada, oploverz, anime batch indonesia, anime batch sub indo, animebatch sub indo, anime batch terbaru, download anime batch subtitle indonesia, situs download anime, anime sub indo, download anime sub indo, download anime subtitle indonesia, download anime terbaru, download anime bd, download anime movie, download anime batch, download anime batch sub indo, download anime batch subtitle indonesia terlengkap, streaming anime, streaming anime sub indo, streaming anime subtitle indonesia, streaming anime sub indo lengkap, nonton anime sub indo, nonton anime subtitle indonesia"><meta property="article:tag" content="Anime"><meta property="article:section" content="Anime"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AnimeAstroes","description":"Website streaming anime sub Indo gratis terlengkap, update anime ongoing dan batch dengan kualitas HD dan akses mudah di semua perangkat.","logo":"//favicon.ico","url":"/","founder":{"@type":"Person","name":"admin","url":"/"},"foundingDate":"2025-06-07"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"AnimeAstroes","url":"/","description":"Website streaming anime sub Indo gratis terlengkap, update anime ongoing dan batch dengan kualitas HD dan akses mudah di semua perangkat.","potentialAction":{"@type":"SearchAction","target":"/?q={search_term}","query-input":"required name=search_term"}}</script>
+<Layout title="AnimeAstroes - Nonton Anime Sub Indo" description="Website streaming anime sub Indo gratis terlengkap, update anime ongoing dan batch dengan kualitas HD dan akses mudah di semua perangkat.">
   <Carousel data={homeRes?.hero || []} />
 
   <div id="content" class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
@@ -40,7 +43,7 @@ const data = await fetchData("ongoing");
       <div
         class="w-full absolute bottom-0 bg-base-100/50 group-hover:backdrop-blur-sm transition-[height] max-h-[100%] h-20 md:h-22 group-hover:h-96 flex flex-col justify-center items-center rounded"
       >
-     <h3
+        <h3
           class="text-sm md:text-md font-bold absolute top-2 line-clamp-2 group-hover:line-clamp-5 text-center"
         >
         </h3>
@@ -60,7 +63,7 @@ const data = await fetchData("ongoing");
             >
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
-        Tonton
+            Tonton
           </a>
           <p class="text-center text-xs font-semibold"></p>
         </div>

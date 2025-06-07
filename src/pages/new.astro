@@ -1,0 +1,86 @@
+---
+export const prerender = false;
+import Layout from "~/layouts/Layout.astro";
+import Card from "~/components/ui/Card.astro";
+import { fetchData } from "~/utils/api";
+
+const data = await fetchData("genre");
+---
+
+<Layout title="New Anime - AnimeAstroes">
+  <div id="content" class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+    <Card data={data?.results || []} />
+    <div
+      id="loading"
+      class="skeleton aspect-[3/4] max-h-96 flex items-center justify-center"
+    >
+      Loading...
+    </div>
+  </div>
+
+  <template id="card-template">
+    <div
+      class="card aspect-[3/4] group relative select-none shadow rounded max-h-96"
+    >
+      <figure>
+        <img
+          src=""
+          width="240"
+          height="340"
+          alt=""
+          loading="lazy"
+          class="card-image object-cover aspect-[3/4] rounded w-full h-full"
+        />
+      </figure>
+      <div
+        class="w-full absolute bottom-0 bg-base-100/50 group-hover:backdrop-blur-sm transition-[height] max-h-[100%] h-20 md:h-22 group-hover:h-96 flex flex-col justify-center items-center rounded"
+      >
+        <h3
+          class="text-sm md:text-md font-bold absolute top-2 line-clamp-2 group-hover:line-clamp-5 text-center"
+        >
+        </h3>
+        <div class="absolute bottom-1 flex flex-col gap-4">
+          <a href="" class="hidden group-hover:flex btn btn-primary btn-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-play size-4"
+            >
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Tonton
+          </a>
+          <p class="text-center text-xs font-semibold"></p>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- And yeah our favorite JSHT is here -->
+  <script>
+    import { initInfiniteScroll } from "/src/scripts/infinite-scroll.js";
+
+    function setupInfiniteScroll() {
+      if (window.__infiniteScrollObserver) {
+        window.__infiniteScrollObserver.disconnect();
+      }
+      initInfiniteScroll("genre");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupInfiniteScroll);
+    } else {
+      setupInfiniteScroll();
+    }
+
+    window.addEventListener("pageshow", setupInfiniteScroll);
+    document.addEventListener("astro:after-swap", setupInfiniteScroll);
+  </script>
+</Layout>
